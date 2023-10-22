@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="assets/style.css?v=2">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+
+    <div id="cbwrap">
+        <h1 id="cbtitle">CRUD</h1>
+        <table id="demo" class="editable">
+            <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Password</th>
+                    <th>Country</th>
+                    <th>Sex</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:attr="data-user-id=${user.UserID}" th:text="${user.login}"></td>
+                    <td th:attr="data-user-id=${user.UserID}" th:text="${user.password}"></td>
+                    <td th:attr="data-user-id=${user.UserID}" th:text="${user.country}"></td>
+                    <td th:attr="data-user-id=${user.UserID}" th:text="${user.sex}"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+
+
+<script src="assets/script.js"></script>
+
+</html>
