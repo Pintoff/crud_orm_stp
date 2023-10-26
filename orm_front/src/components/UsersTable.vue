@@ -109,7 +109,7 @@ export default {
  methods: {
       async getUsers() {
         try {
-          const response = await fetch('http://localhost:8080/api/users');
+          const response = await fetch('http://localhost:28023/api/users');
           const data = await response.json();
           this.users = data;
         } catch (error) {
@@ -119,7 +119,7 @@ export default {
         async deleteUser(userId) {
           event.stopPropagation();
           try {
-            await fetch(`http://localhost:8080/api/users/${userId}`, {
+            await fetch(`http://localhost:28023/api/users/${userId}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ export default {
           this.userData[field] = event.target.innerText;
         },
         addUser() {
-          fetch("http://localhost:8080/api/users", {
+          fetch("http://localhost:28023/api/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -166,7 +166,7 @@ export default {
         },
         async updateUser() {
           try {
-            const response = await fetch('http://localhost:8080/api/users', {
+            const response = await fetch('http://localhost:28023/api/users', {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',

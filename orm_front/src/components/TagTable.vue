@@ -38,7 +38,10 @@
           <tbody>
             <tr>
               <td contenteditable="true" @input="updateTagData('name', $event)">{{ tagData.name }}</td>
-              <td contenteditable="true" @input="updateTagData('post_id', $event)">{{ tagData.post_id }}</td>
+              <td><select v-model="tagData.post_id">
+                <option value="" disabled selected>Choose postId</option>
+                <option v-for="postId in postIds" :key="postId.id">{{ postId.id }}</option>
+              </select></td>
               <td><button class="add-button" @click="addTag()">Добавить</button></td>
             </tr>
           </tbody>
@@ -62,7 +65,10 @@
             </div>
             <div class="modal-input">
               <label for="editedTitle">PostId:</label>
-              <input type="text" id="editedTitle" v-model="editedTag.post_id" />
+              <select v-model="tagData.post_id">
+                <option value="" disabled selected>Choose postId</option>
+                <option v-for="postId in postIds" :key="postId.id">{{ postId.id }}</option>
+              </select>
             </div>
           </div>
           <button class="button-40" @click="updateTag">Обновить</button>
@@ -88,6 +94,7 @@ export default {
         name: "",
         post_id: "",
       },
+      postIds: [],
 
     }
   },
@@ -96,7 +103,7 @@ export default {
  methods: {
       async getTags() {
         try {
-          const response = await fetch('http://localhost:8080/api/tags');
+          const response = await fetch('http://localhost:28023/api/tags');
           const data = await response.json();
           this.tags = data;
         } catch (error) {
@@ -106,7 +113,7 @@ export default {
         async deleteTag(tagId) {
           event.stopPropagation();
           try {
-            await fetch(`http://localhost:8080/api/tags/${tagId}`, {
+            await fetch(`http://localhost:28023/api/tags/${tagId}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
@@ -122,7 +129,7 @@ export default {
           this.tagData[field] = event.target.innerText;
         },
         addTag() {
-          fetch("http://localhost:8080/api/tags", {
+          fetch("http://localhost:28023/api/tags", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -154,7 +161,7 @@ export default {
         },
         async updateTag() {
           try {
-            const response = await fetch('http://localhost:8080/api/tags', {
+            const response = await fetch('http://localhost:28023/api/tags', {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
@@ -175,6 +182,11 @@ export default {
     },
  mounted(){
       this.getTags();
+      fetch("http://localhost:28023/api/posts")
+      .then((response) => response.json())
+      .then((data) => {
+      this.postIds = data;
+      });
     }
 }
 </script>

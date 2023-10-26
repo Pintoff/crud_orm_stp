@@ -42,7 +42,10 @@
             <tr>
               <td contenteditable="true" @input="updatePostData('text', $event)">{{ postData.text }}</td>
               <td contenteditable="true" @input="updatePostData('title', $event)">{{ postData.title }}</td>
-              <td contenteditable="true" @input="updatePostData('userId', $event)">{{ postData.userId }}</td>
+              <td><select v-model="postData.userId">
+                <option value="" disabled selected>Choose userId</option>
+                <option v-for="userId in userIds" :key="userId.id">{{ userId.id }}</option>
+              </select></td>
               <td><button class="add-button" @click="addPost()">Добавить</button></td>
             </tr>
           </tbody>
@@ -69,8 +72,11 @@
               <input type="text" id="editedTitle" v-model="editedPost.title" />
             </div>
             <div class="modal-input">
-              <label for="editedUserId">UserId:</label>
-              <input type="text" id="editedUserId" v-model="editedPost.user_id" />
+              <label>UserId:</label>
+              <select v-model="postData.userId">
+                <option value="" disabled selected>Choose userId</option>
+                <option v-for="userId in userIds" :key="userId.id">{{ userId.id }}</option>
+              </select>
             </div>
           </div>
           <button class="button-40" @click="updatePost">Обновить</button>
@@ -98,6 +104,7 @@ export default {
       selectedPost: null,
       editedPost: {
       },
+      userIds: [],
 
     }
   },
@@ -106,7 +113,7 @@ export default {
  methods: {
       async getPosts() {
         try {
-          const response = await fetch('http://localhost:8080/api/posts');
+          const response = await fetch('http://localhost:28023/api/posts');
           const data = await response.json();
           this.posts = data;
         } catch (error) {
@@ -116,7 +123,7 @@ export default {
         async deletePost(postId) {
           event.stopPropagation();
           try {
-            await fetch(`http://localhost:8080/api/posts/${postId}`, {
+            await fetch(`http://localhost:28023/api/posts/${postId}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
@@ -132,7 +139,7 @@ export default {
           this.postData[field] = event.target.innerText;
         },
         addPost() {
-          fetch("http://localhost:8080/api/posts", {
+          fetch("http://localhost:28023/api/posts", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -165,7 +172,7 @@ export default {
         },
         async updatePost() {
           try {
-            const response = await fetch('http://localhost:8080/api/posts', {
+            const response = await fetch('http://localhost:28023/api/posts', {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
@@ -186,6 +193,11 @@ export default {
     },
  mounted(){
       this.getPosts();
+      fetch("http://localhost:28023/api/users")
+      .then((response) => response.json())
+      .then((data) => {
+      this.userIds = data;
+      });
     }
 }
 </script>
