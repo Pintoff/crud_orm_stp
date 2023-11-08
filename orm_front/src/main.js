@@ -1,15 +1,16 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import './style.css'
-import App from './App.vue'
-import ChooseComponent from './components/ChooseComponent.vue';
-import UsersTable from './components/UsersTable.vue';
-import PostTable from './components/PostTable.vue';
-import TagTable from './components/TagTable.vue';
-
+import './style.css';
+import App from './App.vue';
+import ChooseComponent from './components/admin/ChooseComponent.vue';
+import UsersTable from './components/admin/UsersTable.vue';
+import PostTable from './components/admin/PostTable.vue';
+import TagTable from './components/admin/TagTable.vue';
+import MainPage from './components/user/MainPageComponent.vue'
 
 const routes = [
-  { path: '/', name: 'choose-component', component: ChooseComponent },
+  { path: '/', name: 'main-page-component', component: MainPage },
+  { path: '/admin', name: 'choose-component', component: ChooseComponent },
   { path: '/users', name: 'users', component: UsersTable },
   { path: '/posts', name: 'posts', component: PostTable },
   { path: '/tags', name: 'tags', component: TagTable },

@@ -1,5 +1,5 @@
 <script setup>
-import ChooseComponent from './components/ChooseComponent.vue';
+import ChooseComponent from './components/admin/ChooseComponent.vue';
 </script>
 
 <template>

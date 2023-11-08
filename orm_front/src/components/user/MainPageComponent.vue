@@ -1,8 +1,8 @@
 <template>
+    <MainPageHeader/>
     <section class="cards-wrapper">
         <div class="card-grid-space">
-            <div class="num">01</div>
-            <a class="card" href="https://codetheweb.blog/2017/10/06/html-syntax/" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
+            <a class="card" href="" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
             <div>
                 <h1>HTML Syntax</h1>
                 <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
@@ -14,8 +14,7 @@
             </a>
         </div>
         <div class="card-grid-space">
-            <div class="num">02</div>
-            <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
+            <a class="card" href="" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
             <div>
                 <h1>Basic types of HTML tags</h1>
                 <p>Learn about some of the most common HTML tags…</p>
@@ -27,8 +26,7 @@
             </a>
         </div>
         <div class="card-grid-space">
-            <div class="num">03</div>
-            <a class="card" href="https://codetheweb.blog/2017/10/14/links-images-about-file-paths/" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/links-images-about-file-paths/cover.jpg')">
+            <a class="card" href="" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/links-images-about-file-paths/cover.jpg')">
             <div>
                 <h1>Links, images and about file paths</h1>
                 <p>Learn how to use links and images along with file paths…</p>
@@ -43,9 +41,11 @@
 </template>
 
 <script>
+import MainPageHeader from './MainPageHeader.vue';
 export default {
-  name: 'main-page-compoennt',
+  name: 'main-page-component',
   components: {
+    MainPageHeader,
     },
   data() {
     return {
@@ -92,6 +92,7 @@ a {
   padding: 4rem;
   margin: 0 auto;
   width: max-content;
+  padding-top: 10vh;
 }
 
 .card {
