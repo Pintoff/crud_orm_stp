@@ -8,7 +8,6 @@
       <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
       <li><a href="/">Home</a></li>
       <li><a href="/admin">Admin</a></li>
-      <li><a href="#">Add Post</a></li>
     </ul>
     <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
   </div>

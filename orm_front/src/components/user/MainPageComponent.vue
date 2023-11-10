@@ -5,7 +5,7 @@
             <div>
                 <h1>{{ post.postTitle }}</h1>
                 <p>{{ post.postText }}</p>
-                <div class="author">{{ post.userName }}</div>
+                <div class="author">  {{ post.userName }}</div>
                 <div class="tags">
                     <div class="tag" v-for="(tag, tagIndex) in post.postTags" :key="tagIndex">{{ tag }}</div>
                 </div>
@@ -17,10 +17,17 @@
         <div class="modal" v-if="isModalOpen">
           <div class="modal-content">
             <h1>{{ selectedPost.postTitle }}</h1>
+            
             <p>{{ selectedPost.postText }}</p>
-            <div class="author">{{ selectedPost.userName }}</div>
+            <div class="author"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> {{ selectedPost.userName }}</div>
             <div class="tags">
-              <div class="tag" v-for="(tag, tagIndex) in selectedPost.postTags" :key="tagIndex">{{ tag }}</div>
+              <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.0498 7.0498H7.0598M10.5118 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V10.5118C3 11.2455 3 11.6124 3.08289 11.9577C3.15638 12.2638 3.27759 12.5564 3.44208 12.8249C3.6276 13.1276 3.88703 13.387 4.40589 13.9059L9.10589 18.6059C10.2939 19.7939 10.888 20.388 11.5729 20.6105C12.1755 20.8063 12.8245 20.8063 13.4271 20.6105C14.112 20.388 14.7061 19.7939 15.8941 18.6059L18.6059 15.8941C19.7939 14.7061 20.388 14.112 20.6105 13.4271C20.8063 12.8245 20.8063 12.1755 20.6105 11.5729C20.388 10.888 19.7939 10.2939 18.6059 9.10589L13.9059 4.40589C13.387 3.88703 13.1276 3.6276 12.8249 3.44208C12.5564 3.27759 12.2638 3.15638 11.9577 3.08289C11.6124 3 11.2455 3 10.5118 3ZM7.5498 7.0498C7.5498 7.32595 7.32595 7.5498 7.0498 7.5498C6.77366 7.5498 6.5498 7.32595 6.5498 7.0498C6.5498 6.77366 6.77366 6.5498 7.0498 6.5498C7.32595 6.5498 7.5498 6.77366 7.5498 7.0498Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+              <div class="tag" v-for="(tag, tagIndex) in selectedPost.postTags" :key="tagIndex"> {{ tag }}</div>
             </div>
             <button @click="closeModal">Закрыть</button>
           </div>
