@@ -192,6 +192,11 @@ export default {
 </script>
 
 <style scoped>
+.table-box {
+  padding-top: 10vh;
+}
+
+
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;

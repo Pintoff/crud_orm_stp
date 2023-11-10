@@ -1,61 +1,87 @@
 <template>
-    <MainPageHeader/>
     <section class="cards-wrapper">
-        <div class="card-grid-space">
-            <a class="card" href="" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
+        <div class="card-grid-space" v-for="post in posts" :key="post.userName">
+          <a class="card" @click="openModal(post)" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
             <div>
-                <h1>HTML Syntax</h1>
-                <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
-                <div class="date">6 Oct 2017</div>
+                <h1>{{ post.postTitle }}</h1>
+                <p>{{ post.postText }}</p>
+                <div class="author">{{ post.userName }}</div>
                 <div class="tags">
-                <div class="tag">HTML</div>
+                    <div class="tag" v-for="(tag, tagIndex) in post.postTags" :key="tagIndex">{{ tag }}</div>
                 </div>
             </div>
-            </a>
+          </a>
         </div>
-        <div class="card-grid-space">
-            <a class="card" href="" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
-            <div>
-                <h1>Basic types of HTML tags</h1>
-                <p>Learn about some of the most common HTML tags…</p>
-                <div class="date">9 Oct 2017</div>
-                <div class="tags">
-                <div class="tag">HTML</div>
-                </div>
+
+
+        <div class="modal" v-if="isModalOpen">
+          <div class="modal-content">
+            <h1>{{ selectedPost.postTitle }}</h1>
+            <p>{{ selectedPost.postText }}</p>
+            <div class="author">{{ selectedPost.userName }}</div>
+            <div class="tags">
+              <div class="tag" v-for="(tag, tagIndex) in selectedPost.postTags" :key="tagIndex">{{ tag }}</div>
             </div>
-            </a>
-        </div>
-        <div class="card-grid-space">
-            <a class="card" href="" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/links-images-about-file-paths/cover.jpg')">
-            <div>
-                <h1>Links, images and about file paths</h1>
-                <p>Learn how to use links and images along with file paths…</p>
-                <div class="date">14 Oct 2017</div>
-                <div class="tags">
-                <div class="tag">HTML</div>
-                </div>
-            </div>
-            </a>
+            <button @click="closeModal">Закрыть</button>
+          </div>
         </div>
     </section>
 </template>
 
 <script>
-import MainPageHeader from './MainPageHeader.vue';
 export default {
   name: 'main-page-component',
   components: {
-    MainPageHeader,
+    
     },
   data() {
     return {
+      users: [],
+      posts: [],
+      isModalOpen: false,
+      selectedPost: null,
     }
   },
  computed: {
     },
  methods: {
+      getPosts() {
+        fetch('http://localhost:28023/api/users')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.users = data;
+          this.posts = data.map(user => {
+          const posts = user.posts.map(post => {
+              return {
+                  userName: user.login,
+                  postTitle: post.title,
+                  postText: post.text,
+                  postTags: post.tags.map(tag => tag.name)
+              };
+          });
+          return posts;
+          }).flat();
+        })
+        .catch(error => {
+          console.error('Ошибка при получении данных:', error);
+        });
+      },
+      openModal(post) {
+        this.selectedPost = post;
+        this.isModalOpen = true;
+      },
+      closeModal() {
+        this.selectedPost = null;
+        this.isModalOpen = false;
+      },
     },
  mounted(){
+  this.getPosts();
     }
 }
 </script>
@@ -154,7 +180,7 @@ a {
   color: white;
 }
 
-.card .date {
+.card .author {
   position: absolute;
   top: 0;
   right: 0;
@@ -220,7 +246,7 @@ a {
   font-weight: normal;
 }
 
-/* MEDIA QUERIES */
+
 @media screen and (max-width: 1285px) {
   .cards-wrapper {
     grid-template-columns: 1fr 1fr;
@@ -259,5 +285,84 @@ a {
   }
 }
 
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 70vw;
+  text-align: left;
+  position: relative;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.modal-content .author {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.modal-content .tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal-content .tag {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content .tag:hover {
+  background-color: #0056b3;
+}
+
+.modal-content button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}
 
 </style>

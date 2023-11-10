@@ -1,9 +1,9 @@
 <script setup>
-import ChooseComponent from './components/admin/ChooseComponent.vue';
+import MainPageHeader from './components/user/MainPageHeader.vue';
 </script>
 
 <template>
-  
+  <MainPageHeader/>
   <router-view></router-view>
 </template>
 
