@@ -1,13 +1,14 @@
 <template>
  <nav>
   <div class="wrapper">
-    <div class="logo"><a href="#">Blog</a></div>
+    <div class="logo"><a href="/">Blog</a></div>
     <input type="radio" name="slider" id="menu-btn">
     <input type="radio" name="slider" id="close-btn">
     <ul class="nav-links">
       <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
       <li><a href="/">Home</a></li>
-      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin">Admin(OLD)</a></li>
+      <li><h4>Add post</h4></li>  <!-- Открывается модалка, создается пост с возможностью выбрать юзера из дропдауна и выбрать тег из дропдауна, потом отправляется запрос на создание поста без тегов и если были теги то запрос еще один на обработчик тегов чтоьбы добавить к посту теги  -->
     </ul>
     <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
   </div>
@@ -75,7 +76,7 @@ nav .wrapper{
 .nav-links li{
   list-style: none;
 }
-.nav-links li a{
+.nav-links li a {
   color: #f2f2f2;
   text-decoration: none;
   font-size: 18px;
@@ -84,7 +85,18 @@ nav .wrapper{
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-.nav-links li a:hover{
+
+.nav-links li h4 {
+  color: #f2f2f2;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover, .nav-links li h4:hover{
   background: #3A3B3C;
 }
 .nav-links .mobile-item{
